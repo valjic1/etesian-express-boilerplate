@@ -1,0 +1,4 @@
+- [] Declare proper error messages in `api/controller`
+- [] Refactor `api/validation` and declare meaningful messages
+- [] Properly document available routes
+- [] Hide Postgres details from user when sending back DatabaseError
