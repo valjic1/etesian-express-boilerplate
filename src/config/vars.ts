@@ -11,7 +11,7 @@ export const appName = process.env.APP_NAME as string;
 export const environment = process.env.NODE_ENV as string;
 export const saltRounds = Number(process.env.SALT_ROUNDS);
 export const logs = process.env.NODE_ENV === "production" ? "combined" : "dev";
-export const useHttps = Boolean(process.env.USE_HTTPS);
+export const useHttps = process.env.USE_HTTPS === "true" ? true : false;
 export const port = Number(process.env.PORT);
 
 // Database
