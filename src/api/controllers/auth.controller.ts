@@ -6,9 +6,8 @@ import { Between, getRepository, Repository } from "typeorm";
 import { RefreshToken } from "@models/refresh-token";
 import { User } from "@models/user";
 
-import { Messages } from "../messages";
 import { TryCatch } from "../middlewares";
-import { APIError } from "../shared";
+import { APIError, Messages } from "../shared";
 
 export class AuthController {
   private refreshTokenRepository: Repository<RefreshToken>;

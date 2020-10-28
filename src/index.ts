@@ -11,7 +11,8 @@ import { appName, environment } from "@config/vars";
   await connectToDatabase();
   (await import("@config/server")).startServer();
 })().catch((error) => {
-  logger.info(`Failed to start ${appName} (${environment})`);
+  logger.error(`Failed to start ${appName} (${environment})`);
+  logger.error(error);
   process.exit(0);
 });
 

@@ -5,9 +5,8 @@ import { getRepository, Like, Repository } from "typeorm";
 
 import { User } from "@models/user";
 
-import { Messages } from "../messages";
 import { TryCatch } from "../middlewares";
-import { APIError, UserQueryParams } from "../shared";
+import { APIError, Messages, UserQueryParams } from "../shared";
 
 export class UserController {
   private userRepository: Repository<User>;

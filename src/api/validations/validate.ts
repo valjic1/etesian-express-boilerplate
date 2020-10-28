@@ -2,8 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import httpStatus from "http-status";
 
-import { Messages } from "../messages";
-import { APIError } from "../shared";
+import { APIError, Messages } from "../shared";
 
 export const validate = () => (
   req: Request,
