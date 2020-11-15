@@ -54,3 +54,6 @@ dist/
 
 # SSL certificates
 ssl/
+
+# Depencendy graph
+dependency-graph.svg

@@ -15,8 +15,10 @@
     "watch-node": "nodemon -r tsconfig-paths/register -r ts-node/register dist/index.js",
     "format": "prettier 'src/**/*.ts' --write",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dependency-graph": "madge --extensions ts --image dependency-graph.svg src",
     "docs": "apidoc -i src -o docs",
-    "postdocs": "opn docs/index.html"
+    "postdocs": "opn docs/index.html",
+    "postdependency-graph": "opn dependency-graph.svg"
   },
   "husky": {
     "hooks": {
