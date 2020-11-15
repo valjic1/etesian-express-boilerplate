@@ -1,4 +1,4 @@
-import { UserProperties } from "@models/user";
+import { UserProperties } from '@models/user';
 
 export type QueryParams = {
   page: string;
@@ -6,9 +6,4 @@ export type QueryParams = {
 };
 
 export type UserQueryParams = QueryParams &
-  Partial<
-    Omit<
-      { [key in keyof UserProperties]: string | undefined },
-      "id" | "password"
-    >
-  >;
+  Partial<Omit<{ [key in keyof UserProperties]: string | undefined }, 'id' | 'password'>>;

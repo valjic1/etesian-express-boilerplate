@@ -1,4 +1,4 @@
-import { User } from "../user";
+import { User } from '../user';
 
 // REFRESH-TOKEN PROPERTIES
 export interface RefreshTokenProperties {

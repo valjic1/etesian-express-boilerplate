@@ -1,20 +1,13 @@
-import PassportJwt, {
-  ExtractJwt,
-  StrategyOptions as JwtStrategyOptions,
-} from "passport-jwt";
-import { getRepository } from "typeorm";
+import PassportJwt, { ExtractJwt, StrategyOptions as JwtStrategyOptions } from 'passport-jwt';
+import { getRepository } from 'typeorm';
 
-import { jwtSecret } from "@config/vars";
+import { jwtSecret } from '@config/vars';
 
-import { User } from "@models/user";
+import { User } from '@models/user';
 
-import { Claims } from "@shared/jwt";
+import { Claims } from '@shared/jwt';
 
-type CustomVerifiedCallback = (
-  error: any,
-  user?: User | false,
-  info?: any
-) => void;
+type CustomVerifiedCallback = (error: any, user?: User | false, info?: any) => void;
 
 // JWT STRATEGY
 
@@ -35,7 +28,7 @@ const verify = async (payload: Claims, done: CustomVerifiedCallback) => {
 
 const options: JwtStrategyOptions = {
   secretOrKey: jwtSecret,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("Bearer"),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
 };
 
 // EXPORTS

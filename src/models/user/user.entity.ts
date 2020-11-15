@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 import {
   IsEmail,
   IsEnum,
@@ -8,26 +8,20 @@ import {
   Length,
   validate,
   ValidationError as ClassValidationError,
-} from "class-validator";
-import {
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+} from 'class-validator';
+import { omit } from 'lodash';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { jwtTool } from "@config/jwt";
-import { saltRounds } from "@config/vars";
+import { jwtTool } from '@config/jwt';
+import { saltRounds } from '@config/vars';
 
-import { UserClaims } from "@shared/jwt";
+import { UserClaims } from '@shared/jwt';
 
-import { RefreshToken } from "../refresh-token";
-import { EntityValidationError } from "../shared";
+import { RefreshToken } from '../refresh-token';
+import { EntityValidationError } from '../shared';
 
-import { UserRoles } from "./user-roles.enum";
-import { UserMethods, UserProperties } from "./user.typings";
+import { UserRoles } from './user-roles.enum';
+import { UserMethods, UserProperties } from './user.typings';
 
 @Entity()
 export class User implements UserProperties, UserMethods {
@@ -64,7 +58,7 @@ export class User implements UserProperties, UserMethods {
   @Length(6, 128)
   password: string;
 
-  @Column({ type: "enum", enum: UserRoles, default: UserRoles.USER })
+  @Column({ type: 'enum', enum: UserRoles, default: UserRoles.USER })
   @IsOptional()
   @IsEnum(UserRoles)
   role: UserRoles;
@@ -81,7 +75,7 @@ export class User implements UserProperties, UserMethods {
   async before() {
     return validate(this).then(async (errors: ClassValidationError[]) => {
       if (errors.length) {
-        throw new EntityValidationError({ entityName: "User", errors });
+        throw new EntityValidationError({ entityName: 'User', errors });
       }
 
       this.password = await this.hash(this.password);
@@ -129,8 +123,7 @@ export class User implements UserProperties, UserMethods {
    * Transform User by omiting password from response
    */
   transform() {
-    const { password, ...transformed } = this;
-    return transformed;
+    return omit(this, 'password');
   }
 
   /**

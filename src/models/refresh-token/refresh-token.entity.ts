@@ -1,23 +1,13 @@
-import {
-  IsString,
-  validate,
-  ValidationError as ClassValidationError,
-} from "class-validator";
-import crypto from "crypto";
-import moment from "moment-timezone";
-import {
-  BeforeInsert,
-  Column,
-  Entity,
-  getRepository,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import crypto from 'crypto';
 
-import { EntityValidationError } from "../shared";
-import { User } from "../user";
+import { IsString, validate, ValidationError as ClassValidationError } from 'class-validator';
+import moment from 'moment-timezone';
+import { BeforeInsert, Column, Entity, getRepository, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { RefreshTokenProperties } from "./refresh-token.typings";
+import { EntityValidationError } from '../shared';
+import { User } from '../user';
+
+import { RefreshTokenProperties } from './refresh-token.typings';
 
 @Entity()
 export class RefreshToken implements RefreshTokenProperties {
@@ -32,8 +22,8 @@ export class RefreshToken implements RefreshTokenProperties {
   @IsString()
   token: string;
 
-  @Column("timestamp without time zone", {
-    default: moment().add(30, "days").toDate(),
+  @Column('timestamp without time zone', {
+    default: moment().add(30, 'days').toDate(),
   })
   expires: Date;
 
@@ -56,11 +46,11 @@ export class RefreshToken implements RefreshTokenProperties {
 
   @BeforeInsert()
   async create() {
-    this.token = `${this.user.id}.${crypto.randomBytes(40).toString("hex")}`;
+    this.token = `${this.user.id}.${crypto.randomBytes(40).toString('hex')}`;
 
     return validate(this).then(async (errors: ClassValidationError[]) => {
       if (errors.length) {
-        throw new EntityValidationError({ entityName: "RefreshToken", errors });
+        throw new EntityValidationError({ entityName: 'RefreshToken', errors });
       }
     });
   }

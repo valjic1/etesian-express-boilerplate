@@ -1,13 +1,13 @@
-import { ConnectionOptions, createConnection } from "typeorm";
+import { ConnectionOptions, createConnection } from 'typeorm';
 
-import { RefreshToken } from "@models/refresh-token";
-import { User } from "@models/user";
+import { RefreshToken } from '@models/refresh-token';
+import { User } from '@models/user';
 
-import { logger } from "./logger";
-import { db } from "./vars";
+import { logger } from './logger';
+import { db } from './vars';
 
 const options: ConnectionOptions = {
-  type: "postgres",
+  type: 'postgres',
   host: db.host,
   port: db.port,
   username: db.username,

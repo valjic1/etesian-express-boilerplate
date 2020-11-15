@@ -1,1 +1,1 @@
-export * from "./EntityValidationError";
+export * from './EntityValidationError';

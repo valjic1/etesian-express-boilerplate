@@ -1,7 +1,7 @@
-import jwt from "jsonwebtoken";
-import moment from "moment-timezone";
+import jwt from 'jsonwebtoken';
+import moment from 'moment-timezone';
 
-import { Claims, IJwtTool, Token, UserClaims } from "./types";
+import { Claims, IJwtTool, Token, UserClaims } from './types';
 
 export class JwtTool implements IJwtTool {
   constructor(private secret: string, private expiration: string) {}
@@ -19,17 +19,16 @@ export class JwtTool implements IJwtTool {
 
   private getPayload = (userClaims: UserClaims): Claims => ({
     iat: moment().unix(),
-    exp: moment().add(this.expiration, "minutes").unix(),
+    exp: moment().add(this.expiration, 'minutes').unix(),
     ...userClaims,
   });
 
-  getAccessToken = (userClaims: UserClaims): string =>
-    this.encode(this.getPayload(userClaims));
+  getAccessToken = (userClaims: UserClaims): string => this.encode(this.getPayload(userClaims));
 
   getToken = (userClaims: UserClaims, refreshToken: string): Token => ({
     accessToken: this.getAccessToken(userClaims),
-    expiresIn: moment().add(this.expiration, "minutes"),
+    expiresIn: moment().add(this.expiration, 'minutes'),
     refreshToken,
-    tokenType: "Bearer",
+    tokenType: 'Bearer',
   });
 }

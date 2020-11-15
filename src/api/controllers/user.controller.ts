@@ -1,12 +1,12 @@
-import { NextFunction, Request, Response } from "express";
-import httpStatus from "http-status";
-import { cloneDeep, isNil, omitBy } from "lodash";
-import { getRepository, Like, Repository } from "typeorm";
+import { NextFunction, Request, Response } from 'express';
+import httpStatus from 'http-status';
+import { cloneDeep, isNil, omitBy, omit } from 'lodash';
+import { getRepository, Like, Repository } from 'typeorm';
 
-import { User } from "@models/user";
+import { User } from '@models/user';
 
-import { TryCatch } from "../middlewares";
-import { APIError, Messages, UserQueryParams } from "../shared";
+import { TryCatch } from '../middlewares';
+import { APIError, Messages, UserQueryParams } from '../shared';
 
 export class UserController {
   private userRepository: Repository<User>;
@@ -58,15 +58,7 @@ export class UserController {
    */
   @TryCatch()
   async list(req: Request, res: Response, next: NextFunction) {
-    const {
-      page,
-      perPage,
-      username,
-      email,
-      firstName,
-      lastName,
-      role,
-    } = req.query as UserQueryParams;
+    const { page, perPage, username, email, firstName, lastName, role } = req.query as UserQueryParams;
 
     const take = Number(perPage);
     const skip = (Number(page) - 1) * take;
@@ -83,7 +75,7 @@ export class UserController {
         lastName: this.Like(lastName),
         role,
       },
-      isNil
+      isNil,
     );
 
     const users = await this.userRepository.find({ take, skip, where });
@@ -104,9 +96,7 @@ export class UserController {
     const user = this.userRepository.create(data);
     await this.userRepository.save(user);
 
-    const response = Array.isArray(user)
-      ? user.map((entity) => entity.transform())
-      : (user as User).transform();
+    const response = Array.isArray(user) ? user.map((entity) => entity.transform()) : (user as User).transform();
 
     res.status(httpStatus.CREATED).json(response);
   }
@@ -138,7 +128,7 @@ export class UserController {
       throw new APIError({ message: Messages.USER_UNDEFINED });
     }
 
-    const { id, ...data } = Object.assign({}, req.body);
+    const data = omit(req.body, 'id');
     const newEntity = Object.assign(cloneDeep(user), data);
 
     await this.userRepository.update(user.id, newEntity);

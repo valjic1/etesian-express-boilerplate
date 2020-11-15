@@ -1,6 +1,6 @@
-import httpStatus from "http-status";
+import httpStatus from 'http-status';
 
-import { ExtendableError } from "@shared/ExtendableError";
+import { ExtendableError } from '@shared/ExtendableError';
 
 export type APIErrorArgs = {
   errors?: any[];
@@ -10,12 +10,7 @@ export type APIErrorArgs = {
 };
 
 export class APIError extends ExtendableError {
-  constructor({
-    errors,
-    message,
-    status = httpStatus.INTERNAL_SERVER_ERROR,
-    stack,
-  }: APIErrorArgs) {
+  constructor({ errors, message, status = httpStatus.INTERNAL_SERVER_ERROR, stack }: APIErrorArgs) {
     super({ errors, message, status });
     Object.setPrototypeOf(this, APIError.prototype);
 

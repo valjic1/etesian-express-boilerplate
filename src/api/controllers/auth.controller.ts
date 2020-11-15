@@ -1,13 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import httpStatus from "http-status";
-import moment from "moment-timezone";
-import { Between, getRepository, Repository } from "typeorm";
+import { NextFunction, Request, Response } from 'express';
+import httpStatus from 'http-status';
+import moment from 'moment-timezone';
+import { Between, getRepository, Repository } from 'typeorm';
 
-import { RefreshToken } from "@models/refresh-token";
-import { User } from "@models/user";
+import { RefreshToken } from '@models/refresh-token';
+import { User } from '@models/user';
 
-import { TryCatch } from "../middlewares";
-import { APIError, Messages } from "../shared";
+import { TryCatch } from '../middlewares';
+import { APIError, Messages } from '../shared';
 
 export class AuthController {
   private refreshTokenRepository: Repository<RefreshToken>;
@@ -77,7 +77,7 @@ export class AuthController {
     const refreshToken = await this.refreshTokenRepository.findOne({
       user,
       token,
-      expires: Between(moment().toDate(), moment().add(1, "year").toDate()),
+      expires: Between(moment().toDate(), moment().add(1, 'year').toDate()),
     });
 
     if (!refreshToken) {

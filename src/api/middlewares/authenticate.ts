@@ -1,19 +1,15 @@
-import { NextFunction, Request, Response } from "express";
-import httpStatus from "http-status";
-import passport from "passport";
+import { NextFunction, Request, Response } from 'express';
+import httpStatus from 'http-status';
+import passport from 'passport';
 
-import { User } from "@models/user";
+import { User } from '@models/user';
 
-import { APIError } from "../shared";
+import { APIError } from '../shared';
 
 /**
  * @name loadUser
  */
-const loadUser = (req: Request, res: Response, next: NextFunction) => async (
-  err: Error,
-  user?: User,
-  info?: any
-) => {
+const loadUser = (req: Request, res: Response, next: NextFunction) => async (err: Error, user?: User, info?: any) => {
   const logIn = (Promise as any).promisify(req.logIn);
 
   const error = err || info;
@@ -24,10 +20,10 @@ const loadUser = (req: Request, res: Response, next: NextFunction) => async (
   } catch (e) {
     return next(
       new APIError({
-        message: error ? error.message : "Unauthorized",
+        message: error ? error.message : 'Unauthorized',
         status: httpStatus.UNAUTHORIZED,
         stack: error ? error.stack : undefined,
-      })
+      }),
     );
   }
 
@@ -41,8 +37,4 @@ const loadUser = (req: Request, res: Response, next: NextFunction) => async (
  * Authenticate user through jwt access token strategy
  */
 export const authenticate = (req: Request, res: Response, next: NextFunction) =>
-  passport.authenticate("jwt", { session: false }, loadUser(req, res, next))(
-    req,
-    res,
-    next
-  );
+  passport.authenticate('jwt', { session: false }, loadUser(req, res, next))(req, res, next);

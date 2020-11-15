@@ -1,12 +1,12 @@
-import express from "express";
+import express from 'express';
 
-import controller from "../controllers/auth.controller";
-import validation from "../validations/auth.validation";
+import controller from '../controllers/auth.controller';
+import validation from '../validations/auth.validation';
 
 export const router = express.Router();
 
 router
-  .route("/login")
+  .route('/login')
   /**
    * @api {post} auth/login Login
    * @apiDescription Get accesToken and refreshToken
@@ -18,7 +18,7 @@ router
   .post(validation.login, controller.login);
 
 router
-  .route("/refresh-token")
+  .route('/refresh-token')
   /**
    * @api {post} auth/refresh-token RefreshToken
    * @apiDescription Exchange refreshTOken for new accesToken and refreshToken

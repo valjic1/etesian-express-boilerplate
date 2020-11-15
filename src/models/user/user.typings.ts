@@ -1,6 +1,6 @@
-import { Token } from "@shared/jwt";
+import { Token } from '@shared/jwt';
 
-import { UserRoles } from "./user-roles.enum";
+import { UserRoles } from './user-roles.enum';
 
 // USER PROPERTIES
 
@@ -18,7 +18,7 @@ export interface UserProperties {
 
 export interface UserMethods {
   passwordMatches: (password: string) => Promise<boolean>;
-  transform: () => Omit<UserProperties, "password">;
+  transform: () => Omit<UserProperties, 'password'>;
   generateAccessToken: () => string;
   generateToken: () => Promise<Token>;
 }

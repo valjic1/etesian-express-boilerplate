@@ -1,11 +1,12 @@
-import { NextFunction, Request, Response } from "express";
-import httpStatus from "http-status";
+import { NextFunction, Request, Response } from 'express';
+import httpStatus from 'http-status';
+import { omit } from 'lodash';
 
-import { environment } from "@config/vars";
+import { environment } from '@config/vars';
 
-import { ExtendableError } from "@shared/ExtendableError";
+import { ExtendableError } from '@shared/ExtendableError';
 
-import { APIError } from "../shared";
+import { APIError } from '../shared';
 
 /**
  * Catch 404 and forward to error handler
@@ -13,24 +14,16 @@ import { APIError } from "../shared";
 export const notFound = (req: Request, res: Response, next: NextFunction) =>
   next(
     new APIError({
-      message: "Not found",
+      message: 'Not found',
       status: httpStatus.NOT_FOUND,
-    })
+    }),
   );
 
 /**
  *  If error is not extended from type ExtendableError then convert it.
  */
-export const converter = (
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const convertedError =
-    err instanceof ExtendableError
-      ? err
-      : new APIError({ stack: err.stack, ...err });
+export const converter = (err: any, req: Request, res: Response, next: NextFunction) => {
+  const convertedError = err instanceof ExtendableError ? err : new APIError({ stack: err.stack, ...err });
 
   next(convertedError);
 };
@@ -38,16 +31,11 @@ export const converter = (
 /**
  * Parser error response. Send stacktrace only during development.
  */
-export const parser = (
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const { name, message, stack, isPublic, ...rest } = err;
+export const parser = (err: any, req: Request, res: Response, next: NextFunction) => {
+  const { name, message, stack, ...rest } = omit(err, 'isPublic');
   const response = { error: { name, message, ...rest, stack } };
 
-  if (environment === "production") {
+  if (environment === 'production') {
     delete response.error.name;
     delete response.error.stack;
   }

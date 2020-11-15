@@ -1,7 +1,7 @@
-import httpStatus from "http-status";
-import { QueryFailedError } from "typeorm";
+import httpStatus from 'http-status';
+import { QueryFailedError } from 'typeorm';
 
-import { ExtendableError } from "@shared/ExtendableError";
+import { ExtendableError } from '@shared/ExtendableError';
 
 // Extended QueryFailedError interface
 
@@ -38,15 +38,10 @@ export class DatabaseError extends ExtendableError {
   detail?: string;
   pgErrorCode?: string;
 
-  constructor({
-    message,
-    detail,
-    status = httpStatus.BAD_REQUEST,
-    pgErrorCode,
-  }: DatabaseErrorArgs) {
+  constructor({ message, detail, status = httpStatus.BAD_REQUEST, pgErrorCode }: DatabaseErrorArgs) {
     const prettyMessage = pgErrorCode
       ? `Error occured while working with database. Refer to error code for additional information. Error code manual can be found at following url: https://www.postgresql.org/docs/12/errcodes-appendix.html`
-      : message || "Unrecognized error occured while working with database.";
+      : message || 'Unrecognized error occured while working with database.';
 
     super({ message: prettyMessage, status });
     Object.setPrototypeOf(this, DatabaseError.prototype);

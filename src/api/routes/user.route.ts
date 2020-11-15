@@ -1,8 +1,8 @@
-import express from "express";
+import express from 'express';
 
-import controller from "../controllers/user.controller";
+import controller from '../controllers/user.controller';
 // import { authenticate } from "../middlewares";
-import validation from "../validations/user.validation";
+import validation from '../validations/user.validation';
 
 export const router = express.Router();
 
@@ -10,10 +10,10 @@ export const router = express.Router();
  * Load user when API with userId route parameter is hit
  *
  */
-router.param("userId", controller.load);
+router.param('userId', controller.load);
 
 router
-  .route("/")
+  .route('/')
   /**
    * @api {get} users/ List Users
    * @apiDescription List users
@@ -34,7 +34,7 @@ router
   .post(validation.createUser, controller.create);
 
 router
-  .route("/:userId")
+  .route('/:userId')
   /**
    * @api {get} users/:id Get User
    * @apiDescription Get user information
