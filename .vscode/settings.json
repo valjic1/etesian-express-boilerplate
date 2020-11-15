@@ -1,0 +1,13 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.formatOnSave": true,
+
+  "prettier.disableLanguages": ["javascript", "typescript"],
+
+  "[javascript]": { "editor.formatOnSave": false },
+  "[typescript]": { "editor.formatOnSave": false },
+
+  "typescript.suggestionActions.enabled": false,
+  "javascript.suggestionActions.enabled": false
+}
